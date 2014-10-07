@@ -1,8 +1,11 @@
 *.class
 *.log
 
+.metadata/
+
 # sbt specific
-.cache/
+**/.cache
+**/bin/
 .history/
 .lib/
 dist/*
