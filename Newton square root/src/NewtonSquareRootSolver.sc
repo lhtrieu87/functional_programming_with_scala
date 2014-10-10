@@ -1,26 +1,26 @@
 object NewtonSquareRootSolver {
   def abs(x: Double) = if (x < 0) -x else x       //> abs: (x: Double)Double
 
-  def squareRootIter(guess: Double, x: Double): Double = {
-    if (isGoodEnough(guess, x)) guess
-    else squareRootIter(improve(guess, x), x)
-  }                                               //> squareRootIter: (guess: Double, x: Double)Double
-
-  def isGoodEnough(guess: Double, x: Double) = {
-    // Divide by x to normalize as for the cases in which
-    // x is too large (non terminated) or too small (imprecise result)
-    abs(guess * guess - x) / x < 0.001
-  }                                               //> isGoodEnough: (guess: Double, x: Double)Boolean
-
-  def improve(guess: Double, x: Double) = {
-    (x / guess + guess) / 2
-  }                                               //> improve: (guess: Double, x: Double)Double
-
   def squareRoot(x: Double) = {
+    def squareRootIter(guess: Double): Double = {
+      if (isGoodEnough(guess)) guess
+      else squareRootIter(improve(guess))
+    }
+
+    def isGoodEnough(guess: Double) = {
+      // Divide by x to normalize as for the cases in which
+      // x is too large (non terminated) or too small (imprecise result)
+      abs(guess * guess - x) / x < 0.001
+    }
+
+    def improve(guess: Double) = {
+      (x / guess + guess) / 2
+    }
+
     if (x < 0) throw new IllegalArgumentException("Input must be a positive number!")
     if (x == 0) 0
     else
-      squareRootIter(1, x)
+      squareRootIter(1)
   }                                               //> squareRoot: (x: Double)Double
 
   squareRoot(4)                                   //> res0: Double = 2.000609756097561
